@@ -2,15 +2,21 @@ import os
 import requests
 from dotenv import load_dotenv
 
-HOST = "192.168.0.247"
-BASE_URL = f"https://{HOST}/restconf/data"
+############################# VRF-ADDRESSER ###################################
+
+HOSTS = {
+    "HOME": "192.168.0.113",
+    "ISP": "192.168.0.112",
+    "INTERNET": "192.168.0.111"
+}
+
 
 load_dotenv()
 
 USERNAME = os.getenv("RESTCONF_USERNAME")
 PASSWORD = os.getenv("RESTCONF_PASSWORD")
 
-# Restconf PATHs
+############################# RESTCONF PATHS ##################################
 
 hostname = (
     "Cisco-IOS-XE-native:native/hostname/"
@@ -28,9 +34,13 @@ eigrp_operation = (
     "Cisco-IOS-XE-eigrp-oper:eigrp-oper-data"
 )
 
+####################### FUNKTION FÖR ENSKILD ENHET ############################
 
-def get_restconf(path):
-    url = f"{BASE_URL}/{path}"
+def get_restconf(device, path):
+
+    host = HOSTS[device]
+
+    url = f"https://{host}/restconf/data/{path}"
 
     headers = {
         "Accept": "application/yang-data+json"
