@@ -34,6 +34,10 @@ eigrp_operation = (
     "Cisco-IOS-XE-eigrp-oper:eigrp-oper-data"
 )
 
+routing = (
+    "ietf-routing:routing-state/routing-instance"
+)
+
 ####################### FUNKTION FÖR ENSKILD ENHET ############################
 
 def get_restconf(device, path):

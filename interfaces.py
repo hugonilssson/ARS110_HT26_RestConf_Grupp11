@@ -71,6 +71,7 @@ EXPECTED_INTERFACES = {
 
 def check_interfaces(device):
 
+    all_correct = True
     data = get_restconf(device, interface)
     interfaces = data["ietf-interfaces:interfaces"]["interface"]
 
@@ -88,13 +89,16 @@ def check_interfaces(device):
         print(f"\n{interface_name}")
 
         ###################### FINNS RÄTT INTERFACE? #######################
+
         if interface_name not in actual_by_name:
             print("✗ Interface saknas")
+            all_correct = False
             continue
 
         actual = actual_by_name[interface_name]
 
         ####################### ÄR INTERFACET PÅ? ##########################
+
         expected_enabled = expected_config["enabled"]
         actual_enabled = actual.get("enabled", False)
 
@@ -106,8 +110,10 @@ def check_interfaces(device):
                 f"(förväntat: {expected_enabled}, "
                 f"hittade: {actual_enabled})"
             )
+            all_correct = False
 
         ######################### DESCRIPTION? #############################
+
         if expected_config["description"]:
             description = actual.get("description")
 
@@ -115,8 +121,10 @@ def check_interfaces(device):
                 print(f"✓ Description finns: {description}")
             else:
                 print("✗ Description saknas")
+                all_correct = False
 
         ######################## RÄTT IP ADDRESS? ##########################
+
         expected_ipv4 = expected_config["ipv4"]
         actual_ipv4 = get_ipv4(actual)
 
@@ -128,6 +136,15 @@ def check_interfaces(device):
                 f"(förväntat: {expected_ipv4}, "
                 f"hittade: {actual_ipv4})"
             )
+            all_correct = False
 
-check_interfaces('HOME')
-print()
+    return all_correct
+
+
+if __name__ == "__main__":
+    result_isp = check_interfaces("ISP")
+    result_internet = check_interfaces("INTERNET")
+    result_home = check_interfaces("HOME")
+    print(f"\nResultat: {result_isp}")
+    print(f"\nResultat: {result_internet}")
+    print(f"\nResultat: {result_home}")
