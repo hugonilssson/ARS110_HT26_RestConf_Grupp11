@@ -29,14 +29,14 @@ def get_ipv4(interface):
 EXPECTED_INTERFACES = {
     "HOME": {
         # RIKTIGT INTERFACE SKA VARA G0/0/0
-        "GigabitEthernet1": {
-            "ipv4": "172.16.16.1/24",
+        "GigabitEthernet0/0/0": {
+            "ipv4": "10.10.10.1/24",
             "enabled": True,
             "description": True
         },
         # RIKTIGT INTERFACE SKA VARA S0/1/0
-        "GigabitEthernet2": {
-            "ipv4": "10.10.10.1/24",
+        "Serial0/1/0": {
+            "ipv4": "172.16.16.1/24",
             "enabled": True,
             "description": True
         }
@@ -44,13 +44,13 @@ EXPECTED_INTERFACES = {
 
     "ISP": {
         # RIKTIGT INTERFACE SKA VARA S0/1/0
-        "GigabitEthernet1": {
+        "Serial0/1/0": {
             "ipv4": "172.16.16.2/24",
             "enabled": True,
             "description": True
         },
         # RIKTIGT INTERFACE SKA VARA G0/0/0
-        "GigabitEthernet2": {
+        "GigabitEthernet0/0/0": {
             "ipv4": "10.11.12.2/24",
             "enabled": True,
             "description": True
@@ -59,7 +59,7 @@ EXPECTED_INTERFACES = {
 
     "INTERNET": {
         #RIKTIGT INTERFACE SKA VARA G0/0/0
-        "GigabitEthernet2": {
+        "GigabitEthernet0/0/0": {
             "ipv4": "10.11.12.3/24",
             "enabled": True,
             "description": True
