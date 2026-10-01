@@ -50,18 +50,42 @@ def get_restconf(device, path):
 
     headers = {
         "Accept": "application/yang-data+json"
-
     }
 
     response = requests.get(
         url,
         headers=headers,
         auth=(USERNAME, PASSWORD),
-        verify=False
+        verify=False,
         timeout=10
     )
 
     response.raise_for_status()
     return response.json()
 
+####################### FUNKTION FÖR ATT SKICKA KONF ###########################
 
+def send_restconf(device, path, method, payload):
+
+    host = HOSTS[device]
+
+    url = f"https://{host}/restconf/data/{path}"
+
+    headers = {
+        "Accept": "application/yang-data+json",
+        "Content-Type": "application/yang-data+json"
+    }
+
+    response = requests.request(
+        method,
+        url,
+        headers=headers,
+        auth=(USERNAME, PASSWORD),
+        verify=False,
+        timeout=10,
+        json=payload
+    )
+
+    response.raise_for_status()
+
+    return response
