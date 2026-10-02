@@ -4,7 +4,7 @@ RESTCONF CCNP1 - Högskolan Väst
 
 This Project is based on the CCNA2 skill-exam: lwb310-20089-2E-omSkillsExam-koppla-v33 EIGRP
 
-See the [Skill-exam](docs\lwb310-20089-2E-omSkillsExam-koppla-v33 EIGRP.pdf)
+See the [Skill-exam](skill-exam.pdf)
 for reference skill-exam.
 
 See the [Network Topology](topologi.png)
