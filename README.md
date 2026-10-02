@@ -7,4 +7,4 @@ This Project is based on the CCNA2 skill-exam: lwb310-20089-2E-omSkillsExam-kopp
 See the [network topology](docs/topology.md)
 for device connections, interfaces and IP addressing.
 
-![Network Topology](docs/topologi.png)
+![Network Topology](topologi.png)
