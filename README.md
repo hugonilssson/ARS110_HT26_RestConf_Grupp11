@@ -9,3 +9,6 @@ for reference skill-exam.
 
 See the [Network Topology](topologi.png)
 for physical and logical topology.
+
+See the [Skill requirements](skill-requirements)
+for requirements to pass the skill-exam.
