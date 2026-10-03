@@ -12,3 +12,6 @@ for physical and logical topology.
 
 See the [Skill requirements](skill-requirements)
 for requirements to pass the skill-exam.
+
+## Certificates
+TLS certificates are not included in this repository because they are specific to the school lab environment.
