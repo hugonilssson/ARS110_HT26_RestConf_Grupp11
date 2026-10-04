@@ -1,5 +1,8 @@
-from get_restconf import send_restconf, hostname
+from get_restconf import send_restconf, hostname, interface
 from hostname import check_hostname, EXPECTED_HOSTNAMES
+from interfaces import check_interfaces
+
+#################### SÄTTER HOSTNAME-KONF ##########################
 
 def configure_hostname(device):
 
@@ -16,6 +19,33 @@ def configure_hostname(device):
         payload
     )
 
+#################### SÄTTER INTERFACE-KONF ##########################
+
+def configure_interface(device):
+
+    payload = {
+        "Cisco-IOS-XE-native:GigabitEthernet": {
+            "name": "0/0/0",
+            "description": "LAN HOME",
+            "ip": {
+                "address": {
+                    "primary": {
+                        "address": "10.10.10.1",
+                        "mask": "255.255.255.0"
+                    }
+                }
+            }
+        }
+    }
+
+    response = send_restconf(
+        device,
+        interface + "/GigabitEthernet=0%2F0%2F0",
+        "PATCH",
+        payload
+    )
+
+    print(f"Interface skickat till {device}: {response.status_code}")
     print(f"Hostname skickat till {device}: {response.status_code}")
 
 if __name__ == "__main__":
