@@ -3,6 +3,8 @@ from hostname import check_hostname, EXPECTED_HOSTNAMES
 from interfaces import check_interfaces
 from eigrp import check_eigrp
 
+######################################## SKICKA HOSTNAMN ##############################################
+
 def configure_hostname(device):
 
     expected_hostname = EXPECTED_HOSTNAMES[device]
@@ -19,6 +21,8 @@ def configure_hostname(device):
     )
 
     print(f"Hostname skickat till {device}: {response.status_code}")
+
+##################################### SKICKA INTERFACE-KONF ###########################################
 
 def configure_interface(device, interface_type, name, ip, mask, description, method="PATCH"):
 
@@ -48,7 +52,8 @@ def configure_interface(device, interface_type, name, ip, mask, description, met
 
     print(f"Interface skickat till {device}: {response.status_code}")
     
-    
+##################### FUNKTION FÖR ATT STARTA EVENTUELLA INTERFACE FRÅN SHUTDOWN ######################
+
 def enable_interface(device, interface_type, name):
 
     path = f"{interface}/{interface_type}={name.replace('/', '%2F')}"
@@ -71,8 +76,11 @@ def enable_interface(device, interface_type, name):
     else:
         print(f"Interface saknar shutdown redan: {device} {interface_type}{name}")
 
+##################################### KÖRNING AV SKRIPT 1/2 ############################################
 
 if __name__ == "__main__":
+
+    ########################## HOSTNAMN ###########################
 
     for device in ["HOME", "ISP", "INTERNET"]:
         configure_hostname(device)
@@ -83,7 +91,9 @@ if __name__ == "__main__":
             print(f"✓ Hostname korrekt: {actual}")
         else:
             print(f"✗ Fel hostname: {actual}")
-    
+
+    ########################## IP-KONF ############################
+
     configure_interface(
     "HOME",
     "GigabitEthernet",
@@ -134,6 +144,8 @@ if __name__ == "__main__":
     "PUT"
 )
 
+###################################### FUNKTION FÖR EIGRP KONF ########################################
+
 def configure_eigrp(device, as_number, router_id, networks):
 
     network_list = []
@@ -179,7 +191,9 @@ def configure_eigrp(device, as_number, router_id, networks):
     )
 
     print(f"EIGRP skickat till {device}: {response.status_code}")
-    
+
+############################ FUNKTION FÖR STATISK DEFAULT-ROUTE KONF ##################################
+
 def configure_default_route():
     payload = {
         "Cisco-IOS-XE-native:route": {
@@ -205,6 +219,8 @@ def configure_default_route():
     )
 
     print(f"Default route skickad till INTERNET: {response.status_code}")
+
+##################################### KÖRNING AV SKRIPT 2/2 ###########################################
 
 if __name__ == "__main__":
     configure_eigrp(

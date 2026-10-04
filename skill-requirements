@@ -10,8 +10,8 @@
 - Annonsera endast nätverken mellan routrarna via EIGRP.
 
 3. INTERNET-router
-- Skapa Loopback-interface (valfritt vilket nummer)
-- Konfigurera IP-adress och subnätsmask på Loopback (valfritt privat subnät)
+- Skapa Loopback-interface (Loopback 0)
+- Konfigurera IP-adress och subnätsmask på Loopback (10.255.255.0/24)
 - Konfigurera en statisk default route mot samma Loopback
 - Annonsera denna default route via EIGRP till de andra routrarna.
 
